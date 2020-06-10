@@ -46,7 +46,7 @@ export class _RegisterPage extends React.Component<RegisterPageProps, RegisterPa
                     <div>
                         <label>Email</label>
                         {' '}
-                        <input name="email" type="email" onChange={this.onChange} placeholder="email" value={email} />
+                        <input name="email" type="email" onChange={this.onChange} placeholder="email*" value={email} required/>
                     </div>
                     <div>
                         <button type="submit">REGISTER</button>
