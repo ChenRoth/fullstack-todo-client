@@ -1,5 +1,6 @@
 ## Installation
 
+* set up the `fullstack-todo-server` project and run it (it should run at localhost:4000)
 * run `npm install`
 * run `npm start`
 
@@ -11,7 +12,3 @@
 * `actions.ts` - defines all the action creators that we'd like to use for dispatching actions in React components.
 we use `mapDispatchToProps` and wrap these action creators with a `dispatch` function
 * `App.tsx` - this is the main component which you add all your components into
-
-## Example
-
-check out `components/Counter` to see an example component using redux to read and write to the app state.
