@@ -5,6 +5,7 @@ export interface IState {
     isLoginPending: boolean;
     todos: ITodo[];
     isLoadingTodos: boolean;
+    isAddingTodo: boolean;
 }
 
 export interface IAction {
@@ -21,6 +22,9 @@ export enum ActionType {
     GetTodosFail = 'GET_TODOS_FAIL',
     ToggleComplete = 'TOGGLE_COMPLETE',
     DeleteTodo = 'DELETE_TODO',
+    AddTodoPending = 'ADD_TODO_PENDING',
+    AddTodoSuccess = 'ADD_TODO_SUCCESS',
+    AddTodoFail = 'ADD_TODO_FAIL'
 }
 
 const getInitialState = (): IState => {
@@ -29,11 +33,35 @@ const getInitialState = (): IState => {
         isLoadingTodos: false,
         isLoginPending: false,
         isLogged: false,
+        isAddingTodo: false,
     };
 }
 
 export const reducer = (state: IState = getInitialState(), action: IAction) => {
     switch (action.type) {
+        case ActionType.AddTodoPending: {
+            return {
+                ...state,
+                isAddingTodo: true,
+            }
+        }
+
+        case ActionType.AddTodoSuccess: {
+            const {todo} = action.payload;
+            return {
+                ...state,
+                todos: state.todos.concat(todo),
+                isAddingTodo: false,
+            };
+        }
+
+        case ActionType.AddTodoFail: {
+            return {
+                ...state,
+                isAddingTodo: false,
+            }
+        }
+
         case ActionType.DeleteTodo: {
             const {todoId} = action.payload;
             const modifiedTodos = state.todos.slice();
@@ -56,7 +84,7 @@ export const reducer = (state: IState = getInitialState(), action: IAction) => {
             const {todos} = action.payload;
             return {
                 ...state,
-                todos,
+                todos: todos,
                 isLoadingTodos: false,
             };
         }

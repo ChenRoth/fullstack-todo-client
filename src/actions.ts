@@ -1,9 +1,11 @@
 import axios from 'axios';
+import moment from 'moment';
 import { Dispatch } from "redux";
 import { LoginResponse } from "./models/loginResponse";
 import { ITodo } from "./models/todo";
 import { ActionType, IAction } from "./redux/reducer";
 import { getToken, saveToken } from "./token";
+import { AddTodoResponse } from './models/addTodoResponse';
 
 const SERVER_URL = 'http://localhost:4000';
 
@@ -52,7 +54,7 @@ export function getTodosAction() {
             dispatch({
                 type: ActionType.GetTodosSuccess,
                 payload: {
-                    todos,
+                    todos: todos.map(todo => ({...todo, dueDate: new Date(todo.dueDate), creationDate: new Date(todo.creationDate)})),
                 },
             });
         } catch (e) {
@@ -80,6 +82,48 @@ export function toggleCompleteAction(todoId: number) {
             })
         } catch (e) {
 
+        }
+    }
+}
+
+export function addTodoAction(description: string, dueDate: Date) {
+    return async (dispatch: Dispatch<IAction>) => {
+        dispatch({
+            type: ActionType.AddTodoPending,
+            payload: {}
+        });
+
+        try {
+            const creationDate = new Date();
+
+            const { data: { todoId } } = await axios.post<AddTodoResponse>(`${SERVER_URL}/todos`, {
+                description,
+                dueDate: moment(dueDate).format('YYYY-MM-DD HH:mm'),
+            }, {
+                headers: {
+                    Authorization: `Bearer ${getToken()}`,
+                },
+            });
+
+            const todo: ITodo = {
+                id: todoId,
+                complete: false,
+                dueDate,
+                description,
+                creationDate,
+            }
+
+            dispatch({
+                type: ActionType.AddTodoSuccess,
+                payload: {
+                    todo,
+                }
+            });
+        } catch (e) {
+            dispatch({
+                type: ActionType.AddTodoFail,
+                payload: {}
+            });
         }
     }
 }

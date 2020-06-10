@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { toggleCompleteAction, deleteTodo as deleteTodoAction } from '../../actions';
 import { ITodo } from '../../models/todo';
+import moment from 'moment';
 
 interface TodoProps extends ITodo {
     toggleComplete(id: number): void;
@@ -14,8 +15,8 @@ class _Todo extends React.Component<TodoProps> {
         return (
             <div>
                 <h4>{description}</h4>
-                <p>due by {dueDate}</p>
-                <p>created on {creationDate}</p>
+                <p>due by {moment(dueDate).format('DD-MM-YYYY HH:mm')}</p>
+                <p>created on {moment(creationDate).format('DD-MM-YYYY HH:mm')}</p>
                 <input type="checkbox" checked={complete} onChange={this.onToggleComplete} />
                 <button onClick={this.onDelete}>X</button>
             </div>
