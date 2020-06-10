@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route } from 'react-router-dom';
 import { LoginPage } from './pages/login/LoginPage';
 import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { TodosPage } from './pages/todos/TodosPage';
 
 class App extends React.Component {
   render() {
@@ -10,7 +11,7 @@ class App extends React.Component {
       <div className="app">
         <Switch>
           <Route exact path="/login" component={LoginPage} />
-          <PrivateRoute path="">hi</PrivateRoute>
+          <PrivateRoute path="" component={TodosPage} />
         </Switch>
       </div>
     );
