@@ -2,8 +2,11 @@ import React, { ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import {loginAction} from '../../actions';
 import { IState } from '../../redux/reducer';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
+// LoginPage is wrapped with the WithRouter HOC (see the end of the file)
+// this injects extra props into LoginPage, such as the `history` prop
+// we define LoginPageProps to extend RouteComponentProps so Typescript would know we're using the WithRouter and should have extra props
 interface LoginPageProps {
     isLogged: boolean;
     login(username: string, password: string): void;
@@ -31,10 +34,13 @@ export class _LoginPage extends React.Component<LoginPageProps, LoginPageState> 
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
-                    <input name="username" onChange={this.onChange} value={username} required/>
-                    <input name="password" onChange={this.onChange} type="password" value={password} required/>
+                    <input name="username" onChange={this.onChange} value={username} placeholder="username" required/>
+                    <input name="password" onChange={this.onChange} type="password" placeholder="password" value={password} required/>
                     <button type="submit">LOGIN</button>
                 </form>
+                <div>
+                    NOT REGISTERED YET? <Link to="/register">CLICK HERE TO REGISTER</Link>
+                </div>
             </div>
         )
     }

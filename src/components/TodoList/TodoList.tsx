@@ -22,9 +22,10 @@ class _TodoList extends React.Component<TodoListProps> {
         if (isLoading) {
             return <div>Loading TODO list...</div>
         }
+
         return (
             <div>
-                {todos.map(todo => <Todo key={todo.id} {...todo} />)}
+                {todos.length ? todos.map(todo => <Todo key={todo.id} {...todo} />) : 'Your schedule is free!'}
             </div>
         )
     }

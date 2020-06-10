@@ -14,6 +14,7 @@ export interface IAction {
 }
 
 export enum ActionType {
+    LogOut = 'LOG_OUT',
     LoginPending = 'LOGIN_PENDING',
     LoginSuccess = 'LOGIN_SUCCESS',
     LoginFail = 'LOGIN_FAIL',
@@ -39,6 +40,10 @@ const getInitialState = (): IState => {
 
 export const reducer = (state: IState = getInitialState(), action: IAction) => {
     switch (action.type) {
+        case ActionType.LogOut: {
+            return getInitialState();
+        }
+
         case ActionType.AddTodoPending: {
             return {
                 ...state,

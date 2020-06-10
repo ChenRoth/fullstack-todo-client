@@ -1,8 +1,7 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import { loginAction, addTodoAction } from '../../actions';
+import { addTodoAction } from '../../actions';
 import { IState } from '../../redux/reducer';
-import { Redirect } from 'react-router-dom';
 
 interface AddTodoFormProps {
     isAddingTodo: boolean;

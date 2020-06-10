@@ -4,10 +4,40 @@ import { Dispatch } from "redux";
 import { LoginResponse } from "./models/loginResponse";
 import { ITodo } from "./models/todo";
 import { ActionType, IAction } from "./redux/reducer";
-import { getToken, saveToken } from "./token";
+import { getToken, saveToken, clearToken } from "./token";
 import { AddTodoResponse } from './models/addTodoResponse';
 
 const SERVER_URL = 'http://localhost:4000';
+
+export function registerAction(username: string, password: string, email: string) {
+    return async (dispatch: Dispatch<IAction>) => {
+        dispatch({
+            type: ActionType.LoginPending,
+            payload: {}
+        });
+
+        try {
+            const { data: { token } } = await axios.post<LoginResponse>(`${SERVER_URL}/users/register`, {
+                username,
+                password,
+                email,
+            });
+
+            saveToken(token);
+
+            dispatch({
+                type: ActionType.LoginSuccess,
+                payload: {}
+            });
+        } catch (e) {
+            dispatch({
+                type: ActionType.LoginFail,
+                payload: {}
+            });
+        }
+
+    }    
+}
 
 export function loginAction(username: string, password: string) {
     return async (dispatch: Dispatch<IAction>) => {
@@ -144,3 +174,13 @@ export function deleteTodo(todoId: number) {
         });
     }
 }
+
+export function logoutAction(): IAction {
+    // note this is a sync action, so there's no need for returning a callback with dispatch
+    clearToken();
+    return {
+        type: ActionType.LogOut,
+        payload: {}
+    };
+}
+
