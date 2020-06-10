@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import { createStore } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import './index.css';
 import { ActionType } from './redux/reducer';
-import { LOCAL_STORAGE_TOKEN_KEY } from './consts';
+import { createStore } from './redux/store';
+import * as serviceWorker from './serviceWorker';
+import { getToken } from './token';
 
 const store = createStore();
 
-const token = localStorage.getItem(LOCAL_STORAGE_TOKEN_KEY);
+const token = getToken();
 if (token) {
   store.dispatch({
     type: ActionType.LoginSuccess,
