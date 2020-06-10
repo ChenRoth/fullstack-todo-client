@@ -20,6 +20,7 @@ export enum ActionType {
     GetTodosSuccess = 'GET_TODOS_SUCCESS',
     GetTodosFail = 'GET_TODOS_FAIL',
     ToggleComplete = 'TOGGLE_COMPLETE',
+    DeleteTodo = 'DELETE_TODO',
 }
 
 const getInitialState = (): IState => {
@@ -33,6 +34,17 @@ const getInitialState = (): IState => {
 
 export const reducer = (state: IState = getInitialState(), action: IAction) => {
     switch (action.type) {
+        case ActionType.DeleteTodo: {
+            const {todoId} = action.payload;
+            const modifiedTodos = state.todos.slice();
+            const index = modifiedTodos.findIndex(todo => todo.id === todoId);
+            modifiedTodos.splice(index, 1);
+            return {
+                ...state,
+                todos: modifiedTodos
+            }
+        }
+
         case ActionType.GetTodosPending: {
             return {
                 ...state,

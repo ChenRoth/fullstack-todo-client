@@ -83,3 +83,20 @@ export function toggleCompleteAction(todoId: number) {
         }
     }
 }
+
+export function deleteTodo(todoId: number) {
+    return async (dispatch: Dispatch<IAction>) => {
+        await axios.delete(`${SERVER_URL}/todos/${todoId}`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        })
+
+        dispatch({
+            type: ActionType.DeleteTodo,
+            payload: {
+                todoId,
+            },
+        });
+    }
+}
