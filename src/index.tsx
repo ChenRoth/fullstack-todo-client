@@ -6,8 +6,17 @@ import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { createStore } from './redux/store';
 import { BrowserRouter } from 'react-router-dom';
+import { ActionType } from './redux/reducer';
 
 const store = createStore();
+
+const token = localStorage.getItem('todo-token');
+if (token) {
+  store.dispatch({
+    type: ActionType.LoginSuccess,
+    payload: {}
+  });
+}
 
 ReactDOM.render(
   <React.StrictMode>
