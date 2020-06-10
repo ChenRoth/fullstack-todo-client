@@ -1,0 +1,32 @@
+.todo {
+    position: relative;
+    background: lightgrey;
+    border: 1px solid #777;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 12px;
+}
+
+.todo:nth-child(2n) {
+    background: whitesmoke;
+}
+
+.todo.complete {
+    background: lightgreen;
+}
+
+.todo.complete h4 {
+    text-decoration: line-through;
+}
+
+.todo .delete-btn {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    cursor: pointer;
+    background: darkred;
+    border: 0;
+    color: #fff;
+    border-radius: 4px;
+    padding: 4px 10px;
+}

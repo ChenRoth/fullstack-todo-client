@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { IState } from '../../redux/reducer';
 import { logoutAction } from '../../actions';
+import './Header.css';
 
 interface HeaderProps {
     isLogged: boolean;
@@ -12,10 +13,11 @@ class _Header extends React.Component<HeaderProps> {
     render() {
         const {logout, isLogged} = this.props;
         return (
-            <div>
+            <header className="header">
                 <h4>Welcome to the Amazing TODO App!</h4>
+                <div style={{flex: 1}}></div>
                 {isLogged ? <button onClick={logout}>LOG OUT</button> : null}
-            </div>
+            </header>
         )
     }
 }

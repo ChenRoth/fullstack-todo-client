@@ -4,6 +4,7 @@ import { ITodo } from '../../models/todo';
 import { Todo } from '../Todo/Todo';
 import { IState } from '../../redux/reducer';
 import { getTodosAction } from '../../actions';
+import './TodoList.css';
 
 interface TodoListProps {
     isLoading: boolean;
@@ -24,7 +25,7 @@ class _TodoList extends React.Component<TodoListProps> {
         }
 
         return (
-            <div>
+            <div className="todo-list">
                 {todos.length ? todos.map(todo => <Todo key={todo.id} {...todo} />) : 'Your schedule is free!'}
             </div>
         )

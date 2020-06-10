@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
 import { addTodoAction } from '../../actions';
 import { IState } from '../../redux/reducer';
+import './AddTodoForm.css';
 
 interface AddTodoFormProps {
     isAddingTodo: boolean;
@@ -22,18 +23,21 @@ export class _AddTodoForm extends React.Component<AddTodoFormProps, AddTodoFormS
     render() {
         const { isAddingTodo } = this.props;
         const { description, dueDate } = this.state;
-
         return (
-            <div>
+            <div className="add-todo-form">
                 <form onSubmit={this.onSubmit}>
-                    <label>
-                        <p>Description</p>
-                        <textarea name="description" onChange={this.onChange} value={description} required />
-                    </label>
-                    <label>
-                        <p>Due Date</p>
+                    <div>
+                        <label>Description</label>
+                        {' '}
+                        <textarea cols={50} rows={5} name="description" onChange={this.onChange} value={description} required />
+                    </div>
+                    <div>
+                        <label>
+                            Due Date
+                        </label>
+                        {' '}
                         <input name="dueDate" onChange={this.onChange} value={dueDate} type="datetime-local" required />
-                    </label>
+                    </div>
                     <div>
                         <button disabled={isAddingTodo} type="submit">ADD</button>
                     </div>

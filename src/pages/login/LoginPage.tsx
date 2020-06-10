@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent } from 'react';
 import { connect } from 'react-redux';
-import {loginAction} from '../../actions';
+import { loginAction } from '../../actions';
 import { IState } from '../../redux/reducer';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -17,26 +17,41 @@ interface LoginPageState {
     password: string;
 }
 
-export class _LoginPage extends React.Component<LoginPageProps, LoginPageState> {    
+export class _LoginPage extends React.Component<LoginPageProps, LoginPageState> {
     state = {
         username: '',
         password: '',
     }
 
     render() {
-        const {isLogged} = this.props;
-        const {username, password} = this.state;
+        const { isLogged } = this.props;
+        const { username, password } = this.state;
 
         if (isLogged) {
-            return <Redirect to="/"/>;
+            return <Redirect to="/" />;
         }
 
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
-                    <input name="username" onChange={this.onChange} value={username} placeholder="username" required/>
-                    <input name="password" onChange={this.onChange} type="password" placeholder="password" value={password} required/>
-                    <button type="submit">LOGIN</button>
+                    <div>
+                        <label>
+                            Username
+                            </label>
+                        {' '}
+                        <input name="username" onChange={this.onChange} value={username} placeholder="username" required />
+
+                    </div>
+                    <div>
+                        <label>
+                            Password
+                        </label>
+                        {' '}
+                        <input name="password" onChange={this.onChange} type="password" placeholder="password" value={password} required />
+                    </div>
+                    <div>
+                        <button type="submit">LOGIN</button>
+                    </div>
                 </form>
                 <div>
                     NOT REGISTERED YET? <Link to="/register">CLICK HERE TO REGISTER</Link>
@@ -54,8 +69,8 @@ export class _LoginPage extends React.Component<LoginPageProps, LoginPageState> 
 
     onSubmit = (e: FormEvent) => {
         e.preventDefault();
-        const {username, password} = this.state;
-        const {login} = this.props;
+        const { username, password } = this.state;
+        const { login } = this.props;
         login(username, password);
     }
 }
